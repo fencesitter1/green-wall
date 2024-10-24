@@ -2,20 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer components {
+  .simple-button {
+    @apply relative py-1 flex items-center gap-x-1 text-xs md:text-sm text-main-400 hover:text-main-500 transition-colors duration-300;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .simple-button::before {
+    @apply content-[''] absolute top-0 bottom-0 left-[-5px] right-[-5px] z-[-1] scale-[0.6] transition-all duration-300 rounded-md bg-main-100/80 opacity-0;
+  }
+
+  .simple-button:hover::before {
+    @apply scale-100 opacity-100;
+  }
+
+  .simple-button.divider::after {
+    @apply content-[''] absolute top-1/2 -right-3 h-4 w-[1px] -translate-y-1/2 bg-main-300;
+  }
+
+  .appearance-setting fieldset {
+    @apply min-h-[35px] flex items-center justify-between py-1 mb-2 last-of-type:mb-0;
+  }
+
+  .appearance-setting fieldset > label {
+    @apply mr-5 text-sm font-medium whitespace-nowrap;
+  }
+
+  .bg-decoration {
+    background:
+    linear-gradient(180deg, transparent 18em, #fff 30em),
+      url('/grid-cell.svg') 0 0 repeat;
+    background-attachment: local;
+    background-size:
+      100% 100%,
+      40px 40px;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --min-content-width: 300px;
+  --max-content-width: 960px;
+
+  color-scheme: light;
+}
+
+::selection {
+  @apply bg-accent-500/20 text-current;
 }
